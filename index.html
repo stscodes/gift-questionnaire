@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#fff8f3">
+<title>Feliz Aniversário, Joana 💌</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;min-height:100%;overflow-x:hidden}
+body{
+  background:#fff8f3;
+  color:#403337;
+  font-family:"DM Sans",sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
+button{font:inherit}
+.page{width:100%;max-width:480px;margin:0 auto;padding-bottom:55px}
+
+/* INTRO */
+.intro{
+  text-align:center;
+  padding:38px 22px 10px;
+}
+.intro small{
+  display:block;
+  color:#b85f67;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:9px;
+}
+.intro h1{
+  margin:0;
+  color:#713d49;
+  font-family:"Playfair Display",serif;
+  font-size:38px;
+  line-height:1.05;
+}
+.intro p{
+  margin:10px auto 0;
+  max-width:320px;
+  color:#8b777b;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* ENVELOPE */
+.envelope-area{
+  height:390px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px 18px 50px;
+}
+.envelope-wrap{
+  width:calc(100vw - 50px);
+  max-width:400px;
+  height:255px;
+  position:relative;
+  perspective:900px;
+}
+.envelope{
+  position:absolute;
+  inset:0;
+  background:#e6b0b2;
+  border-radius:6px;
+  box-shadow:0 18px 35px rgba(91,49,58,.18);
+}
+.envelope-front{
+  position:absolute;
+  z-index:4;
+  inset:0;
+  background:#e3aaad;
+  clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);
+  border-radius:6px;
+}
+.envelope-bottom{
+  position:absolute;
+  z-index:5;
+  inset:0;
+  background:#efc0c1;
+  clip-path:polygon(0 100%,37% 55%,50% 66%,63% 55%,100% 100%);
+  border-radius:6px;
+}
+.flap{
+  position:absolute;
+  z-index:7;
+  top:0;
+  left:0;
+  width:100%;
+  height:60%;
+  background:#f0c2c3;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top center;
+  transition:transform .9s cubic-bezier(.68,-.2,.25,1.2);
+}
+.letter{
+  position:absolute;
+  z-index:2;
+  left:6%;
+  bottom:5%;
+  width:88%;
+  height:87%;
+  background:#fffdf9;
+  border-radius:3px;
+  padding:28px 18px;
+  box-shadow:0 3px 10px rgba(60,35,40,.12);
+  transition:transform .9s cubic-bezier(.2,.8,.2,1);
+}
+.letter-text{
+  text-align:center;
+  color:#713d49;
+  font-family:"Playfair Display",serif;
+  font-size:23px;
+  line-height:1.2;
+  margin-top:12px;
+}
+.letter-text span{
+  display:block;
+  color:#b85f67;
+  font-family:"DM Sans",sans-serif;
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+.seal{
+  position:absolute;
+  z-index:10;
+  left:50%;
+  top:48%;
+  transform:translate(-50%,-50%);
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#713d49;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 10px rgba(70,35,45,.22);
+  transition:.4s;
+}
+.seal span{
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+.hint{
+  position:absolute;
+  bottom:8px;
+  left:0;
+  right:0;
+  text-align:center;
+  color:#8b777b;
+  font-size:11px;
+}
+
+/* OPEN */
+.envelope-wrap.open .flap{
+  transform:rotateX(180deg);
+  z-index:1;
+}
+.envelope-wrap.open .letter{
+  transform:translateY(-190px);
+  z-index:8;
+}
+.envelope-wrap.open .seal{
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.4);
+}
+.envelope-wrap.open .hint{opacity:0}
+
+/* CONTENT */
+.content{
+  opacity:0;
+  transform:translateY(25px);
+  pointer-events:none;
+  transition:opacity .7s ease,transform .7s ease;
+  padding:0 17px;
+}
+.content.show{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+}
+.card{
+  background:#fffdf9;
+  border:1px solid rgba(113,61,73,.1);
+  border-radius:19px;
+  padding:30px 19px;
+  box-shadow:0 12px 35px rgba(80,40,50,.07);
+}
+.date-label{
+  text-align:center;
+  color:#b85f67;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-weight:700;
+  font-size:9px;
+}
+.card h2{
+  margin:10px 0 0;
+  text-align:center;
+  color:#713d49;
+  font-family:"Playfair Display",serif;
+  font-size:37px;
+  line-height:1.02;
+}
+.subtitle{
+  text-align:center;
+  color:#8b777b;
+  font-size:11px;
+  margin-top:10px;
+}
+.message{
+  margin:29px auto 0;
+  color:#66575a;
+  font-size:14px;
+  line-height:1.75;
+  text-align:center;
+}
+.message strong{color:#713d49}
+.signature{
+  margin-top:24px;
+  text-align:center;
+  color:#713d49;
+  font-family:"Playfair Display",serif;
+  font-size:22px;
+}
+
+/* SECTIONS */
+.section{
+  margin-top:42px;
+}
+.section-label{
+  text-align:center;
+  color:#b85f67;
+  text-transform:uppercase;
+  letter-spacing:2.5px;
+  font-size:9px;
+  font-weight:700;
+}
+.section h3{
+  margin:5px 0 20px;
+  text-align:center;
+  color:#713d49;
+  font-family:"Playfair Display",serif;
+  font-size:27px;
+}
+.facts{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.fact{
+  background:#fff;
+  border:1px solid rgba(113,61,73,.08);
+  border-radius:13px;
+  padding:17px 13px;
+  min-height:145px;
+}
+.fact .icon{font-size:22px}
+.fact h4{
+  margin:9px 0 5px;
+  color:#713d49;
+  font-size:13px;
+}
+.fact p{
+  margin:0;
+  color:#8b777b;
+  font-size:11px;
+  line-height:1.55;
+}
+
+/* REVEALS */
+.reveal-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+}
+.reveal-button{
+  border:1px solid rgba(113,61,73,.15);
+  background:#fff;
+  color:#713d49;
+  border-radius:30px;
+  padding:10px 13px;
+  font-size:11px;
+  font-weight:600;
+}
+.reveal-box{
+  display:none;
+  margin-top:13px;
+  padding:18px;
+  background:#fff;
+  border-radius:13px;
+  border:1px dashed rgba(113,61,73,.18);
+  color:#756568;
+  font-size:12px;
+  line-height:1.65;
+}
+.reveal-box.active{display:block}
+.reveal-box strong{color:#713d49}
+
+/* QUOTE */
+.quote{
+  margin-top:38px;
+  padding:28px 20px;
+  background:#713d49;
+  color:#fff;
+  border-radius:17px;
+  text-align:center;
+}
+.quote p{
+  margin:0;
+  font-family:"Playfair Display",serif;
+  font-size:25px;
+  line-height:1.25;
+}
+.quote small{
+  display:block;
+  margin-top:12px;
+  opacity:.65;
+  font-size:10px;
+}
+
+/* QUIZ */
+.quiz{
+  background:#fff;
+  border:1px solid rgba(113,61,73,.09);
+  border-radius:16px;
+  padding:20px 15px;
+}
+.quiz-type{
+  color:#b85f67;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:8px;
+  font-weight:700;
+}
+.quiz h4{
+  margin:9px 0 17px;
+  color:#713d49;
+  font-family:"Playfair Display",serif;
+  font-size:20px;
+  line-height:1.35;
+}
+.options{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.options button{
+  width:100%;
+  border:1px solid rgba(113,61,73,.12);
+  background:#fffdf9;
+  color:#4b3e41;
+  border-radius:11px;
+  padding:12px;
+  text-align:left;
+  font-size:11px;
+  line-height:1.45;
+}
+.options button.correct{
+  background:#e9f4e9;
+  border-color:#8eb88e;
+  color:#315c36;
+}
+.options button.wrong{
+  background:#fae9e9;
+  border-color:#d99494;
+  color:#7a3d45;
+}
+.result{
+  display:none;
+  margin-top:13px;
+  padding:14px;
+  background:#fff8f3;
+  border-radius:11px;
+  color:#713d49;
+  text-align:center;
+  font-size:11px;
+  line-height:1.6;
+}
+.result.show{display:block}
+
+/* FINAL */
+.final{
+  text-align:center;
+  padding:45px 12px 10px;
+}
+.heart{
+  display:inline-block;
+  font-size:43px;
+  color:#b85f67;
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  20%{transform:scale(1.13)}
+  40%{transform:scale(1)}
+}
+.final h3{
+  margin:8px 0;
+  color:#713d49;
+  font-family:"Playfair Display",serif;
+  font-size:27px;
+}
+.final p{
+  margin:0 auto;
+  max-width:350px;
+  color:#8b777b;
+  font-size:12px;
+  line-height:1.65;
+}
+
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  z-index:100;
+  top:-20px;
+  pointer-events:none;
+  animation:fall 4.5s linear forwards;
+}
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header class="intro">
+  <small>uma mensagem muito importante</small>
+  <h1>Para a Joana</h1>
+  <p>Há uma coisa que não pode ser minimizada: hoje é o teu aniversário.</p>
+</header>
+
+<section class="envelope-area">
+  <div class="envelope-wrap" id="envelope" onclick="openEnvelope()">
+    <div class="letter">
+      <div class="letter-text">
+        <span>uma carta especial para</span>
+        Joana ♡
+      </div>
+    </div>
+    <div class="envelope"></div>
+    <div class="envelope-front"></div>
+    <div class="envelope-bottom"></div>
+    <div class="flap"></div>
+    <div class="seal"><span>♡</span></div>
+    <div class="hint">toca no envelope para abrir 💌</div>
+  </div>
+</section>
+
+<main class="content" id="content">
+
+<div class="card">
+
+  <div class="date-label">29 de Agosto</div>
+  <h2>Feliz Aniversário,<br>Joana! ♡</h2>
+  <div class="subtitle">Virgem · Lua em Gémeos · Canadian-ish</div>
+
+  <div class="message">
+    <p>Hoje é dia de celebrar uma pessoa que consegue ser <strong>metódica, organizada, focada e absolutamente caótica ao volante</strong> — tudo na mesma pessoa.</p>
+
+    <p>A pessoa que teve a <strong>melhor média do curso de Direito</strong>, produzia os melhores apontamentos da Universidade do Minho e simultaneamente conseguia passar parte da aula no Facebook.</p>
+
+    <p>A pessoa por trás dos lendários <strong>#ApontamentosJuanita</strong>: informação impecável, caligrafia que devia provavelmente ser objeto de perícia.</p>
+
+    <p>A pessoa que aparentemente entrou no mundo das <strong>contraordenações</strong> por razões estritamente profissionais. Qualquer teoria envolvendo o Macaco é, naturalmente, mera especulação.</p>
+
+    <p>E, acima de tudo, uma pessoa que temos muita sorte de ter nas nossas vidas.</p>
+  </div>
+
+  <div class="signature">Com muito amor,<br>Sara &amp; Joana ♡</div>
+
+  <section class="section">
+    <div class="section-label">Joana lore</div>
+    <h3>Factos cientificamente importantes</h3>
+
+    <div class="facts">
+      <div class="fact">
+        <div class="icon">☕</div>
+        <h4>O café perfeito</h4>
+        <p>Meia de leite clara, morna e sem espuma. Uma especificação técnica.</p>
+      </div>
+
+      <div class="fact">
+        <div class="icon">📚</div>
+        <h4>#ApontamentosJuanita</h4>
+        <p>Os melhores apontamentos do curso. A caligrafia, porém, exigia investigação.</p>
+      </div>
+
+      <div class="fact">
+        <div class="icon">🍁</div>
+        <h4>Canadian-ish</h4>
+        <p>Passaporte, cidadania e família no Canadá. A canadianidade é que é discutível.</p>
+      </div>
+
+      <div class="fact">
+        <div class="icon">🍩</div>
+        <h4>Prioridades</h4>
+        <p>Iced Tea, comida portuguesa, rissóis e Maple Glaze. Ordem cientificamente válida.</p>
+      </div>
+
+      <div class="fact">
+        <div class="icon">⚖️</div>
+        <h4>Contraordenações</h4>
+        <p>Uma carreira perfeitamente normal. As teorias sobre o Macaco ficam para outra investigação.</p>
+      </div>
+
+      <div class="fact">
+        <div class="icon">🚗</div>
+        <h4>Modo condução</h4>
+        <p>Metódica, focada e organizada. Até ligar o carro.</p>
+      </div>
+
+      <div class="fact">
+        <div class="icon">💇‍♀️</div>
+        <h4>Concentração</h4>
+        <p>Quanto maior a concentração, maior a probabilidade de mexer no cabelo.</p>
+      </div>
+
+      <div class="fact">
+        <div class="icon">😂</div>
+        <h4>Riso</h4>
+        <p>Tem um riso espetacular. Não requer explicação adicional.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Arquivo confidencial</div>
+    <h3>Coisas que só fazem sentido para nós</h3>
+
+    <div class="reveal-buttons">
+      <button class="reveal-button" onclick="showReveal('keys')">🔑 As chaves</button>
+      <button class="reveal-button" onclick="showReveal('macaco')">🐒 O Macaco</button>
+      <button class="reveal-button" onclick="showReveal('canada')">🍁 O Canadá</button>
+      <button class="reveal-button" onclick="showReveal('snow')">❄️ O sal</button>
+      <button class="reveal-button" onclick="showReveal('brecha')">🍽️ Brecha</button>
+    </div>
+
+    <div class="reveal-box" id="keys">
+      <strong>Hotel Lamaçães.</strong><br><br>
+      Joana Peixoto entra no quarto à procura das chaves. A resposta foi simplesmente:
+      <br><br><em>“Leva as chaves, leva tudo.”</em>
+      <br><br>Um momento histórico.
+    </div>
+
+    <div class="reveal-box" id="macaco">
+      <strong>O Macaco.</strong><br><br>
+      Professor Tiago Lopes de Azevedo, especialista em contraordenações, autor de livros sobre contraordenações e, segundo determinadas teorias absolutamente não verificadas, uma das razões pelas quais a Joana acabou nesta área.
+      <br><br>A teoria não foi confirmada pelas autoridades competentes.
+    </div>
+
+    <div class="reveal-box" id="canada">
+      <strong>A canadianidade.</strong><br><br>
+      Passaporte canadiano? Sim.<br>
+      Cidadania canadiana? Sim.<br>
+      Família no Canadá? Sim.<br><br>
+      Gosto pelo Canadá?<br>
+      Bom... isso já é outra conversa.
+    </div>
+
+    <div class="reveal-box" id="snow">
+      <strong>A experiência científica.</strong><br><br>
+      No Canadá surgiu uma pergunta fundamental:
+      <br><br><em>“O que acontece à neve quando lhe pomos sal?”</em>
+      <br><br>
+      Resultado: descobriram a resposta e conseguiram deixar cair no chão todo o sal que havia em casa.
+      <br><br>Ciência.
+    </div>
+
+    <div class="reveal-box" id="brecha">
+      <strong>Brecha.</strong><br><br>
+      Há restaurantes que ficam associados a boas memórias.
+      <br><br>
+      E depois há a Brecha.
+      <br><br>
+      Não precisamos de dizer mais nada.
+    </div>
+  </section>
+
+  <div class="quote">
+    <p>“Não gostar de alguém dá muito trabalho.”</p>
+    <small>— Sara, numa análise profunda sobre a Raquel</small>
+  </div>
+
+  <section class="section">
+    <div class="section-label">Teste de conhecimentos</div>
+    <h3>Uma pergunta muito importante</h3>
+
+    <div class="quiz">
+      <div class="quiz-type">📺 Brooklyn Nine-Nine</div>
+
+      <h4>A Amy tem 30 minutos para organizar um dossier. O que acontece?</h4>
+
+      <div class="options">
+        <button onclick="answer(this,false)">A) Organiza o dossier e vai embora.</button>
+        <button onclick="answer(this,true)">B) Organiza o dossier, cria um sistema de cores, etiquetas, separadores e provavelmente um índice.</button>
+        <button onclick="answer(this,false)">C) Atira tudo para uma pasta e espera pelo melhor.</button>
+        <button onclick="answer(this,false)">D) Decide que afinal 30 minutos são insuficientes e cria um plano para organizar o dossier no dia seguinte.</button>
+      </div>
+
+      <div class="result" id="quizResult"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">As três</div>
+    <h3>Lua em Gémeos™</h3>
+
+    <div class="message">
+      <p>Dizem que as três têm Lua em Gémeos. Nós preferimos acreditar que isso explica perfeitamente a compatibilidade de humor, as conversas e o facto de certas situações se tornarem inexplicavelmente engraçadas.</p>
+      <p><strong>Sara Trota Santos</strong> · <strong>Joana Cristina Ferreira Oliveira</strong> · <strong>Joana Freitas Peixoto</strong></p>
+      <p>Três pessoas. Demasiadas histórias. E material suficiente para construir um site inteiro.</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="final">
+  <div class="heart">♡</div>
+  <h3>Que venham muitos mais anos.</h3>
+  <p>Que nunca te falte Iced Tea, rissóis, bons apontamentos, pessoas que percebam a tua caligrafia e, sobretudo, motivos para continuar a rir.</p>
+  <p style="margin-top:16px"><strong>Feliz aniversário, Joana. 🥂</strong></p>
+</div>
+
+</main>
+</div>
+
+<script>
+let opened=false;
+
+function openEnvelope(){
+  if(opened)return;
+  opened=true;
+
+  const envelope=document.getElementById("envelope");
+  const content=document.getElementById("content");
+
+  envelope.classList.add("open");
+
+  setTimeout(function(){
+    content.classList.add("show");
+    createConfetti();
+
+    setTimeout(function(){
+      content.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+    },350);
+  },1000);
+}
+
+function showReveal(id){
+  const selected=document.getElementById(id);
+  const wasOpen=selected.classList.contains("active");
+
+  document.querySelectorAll(".reveal-box").forEach(function(box){
+    box.classList.remove("active");
+  });
+
+  if(!wasOpen){
+    selected.classList.add("active");
+    setTimeout(function(){
+      selected.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+    },100);
+  }
+}
+
+function answer(button,correct){
+  const buttons=document.querySelectorAll(".options button");
+  const result=document.getElementById("quizResult");
+
+  buttons.forEach(function(btn){
+    btn.disabled=true;
+  });
+
+  if(correct){
+    button.classList.add("correct");
+    result.innerHTML="🎯 <strong>Obviamente.</strong><br><br>Em 30 minutos, a Amy já organizou o dossier, criou um sistema de cores, etiquetou tudo e provavelmente fez uma cópia de segurança.";
+    result.classList.add("show");
+    createConfetti();
+  }else{
+    button.classList.add("wrong");
+
+    buttons.forEach(function(btn){
+      if(btn.textContent.trim().startsWith("B)")){
+        btn.classList.add("correct");
+      }
+    });
+
+    result.innerHTML="❌ <strong>Não.</strong><br><br>Estamos a falar da Amy Santiago. A verdadeira pergunta seria: “Quantos sistemas de organização diferentes ela vai criar nos próximos 30 minutos?”";
+    result.classList.add("show");
+  }
+}
+
+function createConfetti(){
+  const symbols=["♡","✦","✧","♥","•"];
+
+  for(let i=0;i<55;i++){
+    const piece=document.createElement("div");
+    piece.className="confetti";
+    piece.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+
+    piece.style.left=Math.random()*100+"vw";
+    piece.style.fontSize=(Math.random()*9+8)+"px";
+    piece.style.animationDuration=(Math.random()*2+3)+"s";
+    piece.style.animationDelay=(Math.random()*.5)+"s";
+    piece.style.opacity=Math.random()*.7+.3;
+
+    document.body.appendChild(piece);
+
+    setTimeout(function(){
+      piece.remove();
+    },5500);
+  }
+}
+</script>
+
+</body>
+</html>
